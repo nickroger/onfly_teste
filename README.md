@@ -58,21 +58,14 @@ Estamos ansiosos para conhecer sua solução! Caso tenha qualquer dúvida ou pre
 
 
 
-# Setup Docker Laravel 11 com PHP 8.3
-[Assine a Academy, e Seja VIP!](https://academy.especializati.com.br)
 
-### Passo a passo
-Clone Repositório
+## Passo a passo para rodar o projeto
+Clone o projeto
 ```sh
-git clone -b laravel-11-with-php-8.3 https://github.com/especializati/setup-docker-laravel.git app-laravel
+git clone https://github.com/nickroger/onfly_teste.git onfly_teste
 ```
 ```sh
-cd app-laravel
-```
-
-Suba os containers do projeto
-```sh
-docker-compose up -d
+cd onfly_teste/
 ```
 
 
@@ -81,7 +74,42 @@ Crie o Arquivo .env
 cp .env.example .env
 ```
 
-Acesse o container app
+
+Atualize essas variáveis de ambiente no arquivo .env
+```dosini
+APP_NAME="Onlfy - Teste"
+APP_KEY=base64:AWfmXZ3/0F+K+f52gNEhQ98YPklcmNRqXsqxmHp2bF0=
+APP_DEBUG=true
+APP_URL=http://localhost:8989
+
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=username
+DB_PASSWORD=userpass
+
+CACHE_DRIVER=redis
+QUEUE_CONNECTION=redis
+SESSION_DRIVER=redis
+
+REDIS_HOST=redis
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+
+L5_SWAGGER_GENERATE_ALWAYS=true
+L5_SWAGGER_CONST_HOST=http://localhost:8989/api
+
+```
+
+
+Suba os containers do projeto
+```sh
+docker-compose up -d
+```
+
+
+Acesse o container
 ```sh
 docker-compose exec app bash
 ```
@@ -92,20 +120,52 @@ Instale as dependências do projeto
 composer install
 ```
 
+
 Gere a key do projeto Laravel
 ```sh
 php artisan key:generate
 ```
-
-OPCIONAL: Gere o banco SQLite (caso não use o banco MySQL)
-```sh
-touch database/database.sqlite
-```
-
-Rodar as migrations
+Gerar o banco de dados
 ```sh
 php artisan migrate
 ```
 
+Ativar Plugin datatable
+```sh
+php artisan adminlte:plugins install --plugin=datatablesPlugins
+```
+Ativar Plugin datatable
+```sh
+php artisan adminlte:plugins install --plugin=datatables
+```
+Ativar Plugin inputmask
+```sh
+php artisan adminlte:plugins install --plugin=inputmask
+```
+
+Ativar Plugin Bootstrap
+```sh
+php artisan adminlte:plugins install --plugin=tempusdominusBootstrap4
+```
+
+
+Rodar testes, 3 métodos:
+
+Método 1:
+```sh
+php artisan test 
+```
+Método 2:
+```sh
+composer run test
+```
+Método 3:
+```sh
+./vendor/bin/pest
+```
+
 Acesse o projeto
-[http://localhost:8000](http://localhost:8000)
+[http://localhost:8989](http://localhost:8989)
+
+Acessar documentação API
+[http://localhost:8989/api/documentation](http://localhost:8989/documentation)
