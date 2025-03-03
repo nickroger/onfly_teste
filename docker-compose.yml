@@ -30,7 +30,7 @@ services:
    
     # db mysql
     db:
-        image: mysql:5.7.22
+        image: mysql:8.0
         restart: unless-stopped
         environment:
             MYSQL_DATABASE: ${DB_DATABASE:-laravel}
@@ -40,7 +40,7 @@ services:
         volumes:
             - ./.docker/mysql/dbdata:/var/lib/mysql
         ports:
-            - "3388:3306"
+            - "3390:3306"
         networks:
             - laravel
 

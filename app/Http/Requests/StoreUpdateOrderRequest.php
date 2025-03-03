@@ -25,23 +25,28 @@ class StoreUpdateOrderRequest extends FormRequest
     {
 
         $rules = [
-            'title'  => ['required', 'min:3', 'max:255', 'unique:orders'],
-            'description'   => ['required', 'min:3', 'max:5000'],
-            'start_date' => ['required', 'min:1', 'max:10', 'unique:orders', new DateRequestRule],
-            'deadline_date' => ['required', 'min:1', 'max:10', new DateRequestRule],
-            'conclusion_date' => ['required', 'min:1', 'max:10', new DateRequestRule],
+            'destiny'  => ['required', 'min:3', 'max:255', 'unique:orders'],
+            'going_date' => ['required', 'min:1', 'max:10', 'unique:orders', new DateRequestRule],
+            'back_date' => ['required', 'min:1', 'max:10', new DateRequestRule],
             'status' => 'required',
             'id_user' => 'required'
         ];
 
         if ($this->method() === 'PUT') {
-            $rules['title'] = [
+            $rules['destiny'] = [
                 'required',
                 'min:3',
                 'max:255',
                 Rule::unique('orders')->ignore($this->orders ?? $this->id),
             ];
-            $rules['start_date'] = [
+            $rules['going_date'] = [
+                'required',
+                'min:1',
+                'max:10',
+                Rule::unique('orders')->ignore($this->orders ?? $this->id),
+                new DateRequestRule,
+            ];
+            $rules['back_date'] = [
                 'required',
                 'min:1',
                 'max:10',
